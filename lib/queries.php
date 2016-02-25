@@ -15,6 +15,32 @@ function get_diaries()
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function get_images($user_id)
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename FROM images WHERE user_id=:user_id");
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_image_by_user_id_and_filename($user_id,$filename){
+    $query = MySQL::getInstance()->prepare("SELECT * FROM images WHERE user_id=:user_id AND filename=:filename");
+    $query->bindValue(':user_id',$user_id,PDO::PARAM_INT);
+    $query->bindValue(':filename',$filename,PDO::PARAM_STR);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function insert_image($user_id,$friend_name,$description='',$filename){
+    $query = MySQL::getInstance()->prepare("INSERT INTO images (user_id, friend_name, description, filename) Values (:user_id, :friend_name, :description, :filename)");
+    $query->bindValue('user_id',$user_id,PDO::PARAM_INT);
+    $query->bindValue('friend_name',$friend_name,PDO::PARAM_STR);
+    $query->bindValue('description',$description,PDO::PARAM_STR);
+    $query->bindValue('filename',$filename,PDO::PARAM_STR);
+    $query->execute();
+    return get_image_by_user_id_and_filename($user_id,$filename);
+}
+
 function get_diary_by_slug($slug)
 {
     $query = MySQL::getInstance()->prepare("SELECT * FROM diaries WHERE slug=:slug");

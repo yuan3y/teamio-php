@@ -16,3 +16,12 @@ for Post Request, you need key:value pairs in "form-data"
 
 to start this, find under lib folder, copy mysql_template.php to mysql.php
 , modify the database name, username and password accordingly.
+
+
+`GET /user/$user_id/image/` gets a list of images with associated properties of a given user based on $user_id
+
+`POST /user/$user_id/image/` requires the following fields:
+
+ * pictures[]
+ * friend_names[]
+ * descriptions[]

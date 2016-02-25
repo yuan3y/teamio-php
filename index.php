@@ -3,10 +3,6 @@
 foreach (glob("handlers/*_handler.php") as $filename) {
     require $filename;
 }
-//require("handlers/diary_handler.php");
-//require("handlers/diaries_handler.php");
-//require("handlers/comment_handler.php");
-//require("handlers/hello_handler.php");
 require("lib/markdown.php");
 require("lib/mysql.php");
 require("lib/queries.php");
@@ -18,9 +14,14 @@ ToroHook::add("404", function () {
 });
 
 Toro::serve(array(
-    "/diaries/" => "diariesHandler",
+    "/diary/" => "diariesHandler",
     "/diary/:alpha" => "diaryHandler",
     "/diary/:alpha/comment" => "CommentHandler",
     "/hello/" => "HelloHandler",
     "/" => "HelloHandler",
+    "/user/:number/image/" => "ImagesHandler",
+    /* Naming Convention
+     * To make our life easier, we'll use only singular terms in URL,
+     * For Handlers' names, use singular or plural corresponding to the usage
+     * Happy coding :) */
 ));
