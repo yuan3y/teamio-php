@@ -12,3 +12,7 @@ X-Requested-With
 XMLHttpRequest
 
 for Post Request, you need key:value pairs in "form-data"
+
+
+to start this, find under lib folder, copy mysql_template.php to mysql.php
+, modify the database name, username and password accordingly.
