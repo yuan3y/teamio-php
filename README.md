@@ -7,6 +7,10 @@ The backend API for teamio system.
 * enable mod_rewirte in apache2.4
 * Suggested testing tool: Postman in Chrome Browser.
 
+** LAMP installation, setting up .htaccess refers to Digital Ocean
+** Creating Virtual Directory in Apache2 search internet.
+** Grant your_user www_data group access
+
 ## Requests
 You will need a http header:
 X-Requested-With
