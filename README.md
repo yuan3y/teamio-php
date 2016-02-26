@@ -41,15 +41,43 @@ This is an uncompleted feature, please refer to [http://bshaffer.github.io/oauth
 
 `GET /user/$user_id/image/` gets a list of images with associated properties of a given user based on $user_id
 
+* Sample Data:
+```javascript
+[
+  {
+    "id": "1",
+    "friend_name": "Samuel",
+    "description": "He reads minds.",
+    "filename": "06c0153d.jpg"
+  },
+  {
+    "id": "2",
+    "friend_name": "Yuan Yiyang",
+    "description": "He codes.",
+    "filename": "ee6a9fdc.jpg"
+  }
+]
+```
+
+
 `POST /user/$user_id/image/` requires the following fields:
 
  * pictures[]
  * friend_names[]
  * descriptions[]
- 
+
+This will get back the inserted data:
+```javascript
+{
+  "id": "2",
+  "friend_name": "Yuan Yiyang",
+  "description": "He codes.",
+  "filename": "ee6a9fdc.jpg"
+}
+```
+
+
 `GET /user/$user_id/image/$img_id` gets information of image $img_id of $user_id
-
-
 
 `GET /user/` retrieveS a list of all user_id
 
