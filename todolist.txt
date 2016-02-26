@@ -1,0 +1,24 @@
+db:
+table for game record (gameID,userID,gameType,gameResult)
+user account table  (userID,user_info)
+relationship (guardianID, wardID)
+game(game_type,game_name)
+
+
+C-post U-put R-get D-delete
+handlers(controls):
+get /user/ => retrieve a list of all user id only
+post /user/ => create a new user (form field: userInfo)
+get /user/$id => get info of the user
+put /user/$id => update
+get /game/match_name/user/$id/ => generate a new game, with id, then an array of matches, each contains 1 name, 4 images
+get /game/match_image/user/$id => generate a new game, with id, then an array of matches, each contains 1 image, 4 names.
+:: requires one function to randomly select 3 ‘other’ rows from the image table
+:: requires one function to randomise order (3 fake + 1 real) options
+post /user/$user_id/game_match_name/$game_id => record game result score (form field: result)
+post /user/$user_id/game_match_image/$game_id => record game result score (form field: result)
+get /record/ => aggregated record of all users
+get /record/user/$user_id => all record of user $user_id
+
+
+
