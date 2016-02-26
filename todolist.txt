@@ -5,7 +5,7 @@ relationship (guardianID, wardID)
 game(game_type,game_name)
 
 
-C-post U-put R-get D-delete
+  C-post U-put R-get D-delete
 handlers(controls):
 get /user/ => retrieve a list of all user id only
 post /user/ => create a new user (form field: userInfo)
@@ -20,5 +20,9 @@ post /user/$user_id/game_match_image/$game_id => record game result score (form 
 get /record/ => aggregated record of all users
 get /record/user/$user_id => all record of user $user_id
 
+important but not urgent:
+user login
 
-
+research into (not exactly urgent):
+Facebook API
+OAuth 2.0
