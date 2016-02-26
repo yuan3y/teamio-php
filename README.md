@@ -30,6 +30,8 @@ for Post Request, you need key:value pairs in "form-data"
 
 6. pull, commit, push
 
+## OAuth 2.0
+This is an uncompleted feature, please refer to [http://bshaffer.github.io/oauth2-server-php-docs/](http://bshaffer.github.io/oauth2-server-php-docs/)
 
 ## API Usage
 
