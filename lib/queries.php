@@ -6,12 +6,11 @@
 //    $query->execute();
 //}
 
-function get_diaries()
+function get_diaries($user_id)
 {
-    $query = MySQL::getInstance()->query("SELECT * FROM diaries ORDER BY published DESC");
-//    return $query->fetchAll();
-//    $query = MySQL::getInstance()->prepare("SELECT * FROM diaries ORDER BY published DESC");
-//    $query->execute();
+    $query = MySQL::getInstance()->prepare("SELECT * FROM diaries WHERE user_id=:user_id ORDER BY published DESC");
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -82,7 +81,7 @@ function save_comment($diary_id, $name, $body)
     $query->execute();
 }
 
-function new_diary($title, $body, $published, $slug = '')
+function new_diary($title, $body, $published, $slug = '', $user_id)
 {
     if ($slug == '')
         $slug = _slugify($title);
@@ -92,11 +91,12 @@ function new_diary($title, $body, $published, $slug = '')
     $pre_query->execute();
     $n_slug = (int)($pre_query->fetchColumn());
     if ($n_slug > 0) $slug = $slug . (string)($n_slug + 1);
-    $query = MySQL::getInstance()->prepare("INSERT INTO diaries (title, body, slug, published) VALUES (:title, :body, :slug, :published)");
+    $query = MySQL::getInstance()->prepare("INSERT INTO diaries (title, body, slug, published, user_id) VALUES (:title, :body, :slug, :published, :user_id)");
     $query->bindValue(':title', $title, PDO::PARAM_STR);
     $query->bindValue(':body', $body, PDO::PARAM_STR);
     $query->bindValue(':slug', $slug, PDO::PARAM_STR);
     $query->bindValue(':published', $published, PDO::PARAM_STR);
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
 
 }

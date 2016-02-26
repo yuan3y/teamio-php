@@ -14,7 +14,7 @@ ToroHook::add("404", function () {
 });
 
 Toro::serve(array(
-    "/diary/" => "diariesHandler",
+    "/user/:number/diary/" => "diariesHandler",
     "/diary/:alpha" => "diaryHandler",
     "/diary/:alpha/comment/" => "CommentHandler",
     "/hello/" => "HelloHandler",
