@@ -31,6 +31,14 @@ function get_image_by_user_id_and_filename($user_id,$filename){
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
+function get_image_by_user_id_and_img_id($user_id,$img_id){
+    $query = MySQL::getInstance()->prepare("SELECT * FROM images WHERE user_id=:user_id AND id=:img_id");
+    $query->bindValue(':user_id',$user_id,PDO::PARAM_INT);
+    $query->bindValue(':img_id',$img_id,PDO::PARAM_STR);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
 function insert_image($user_id,$friend_name,$description='',$filename){
     $query = MySQL::getInstance()->prepare("INSERT INTO images (user_id, friend_name, description, filename) Values (:user_id, :friend_name, :description, :filename)");
     $query->bindValue('user_id',$user_id,PDO::PARAM_INT);

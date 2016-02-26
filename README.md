@@ -1,4 +1,4 @@
-The backend API for CMS system.
+The backend API for teamio system.
 
 ## Software Requirements
 
@@ -40,3 +40,5 @@ for Post Request, you need key:value pairs in "form-data"
  * pictures[]
  * friend_names[]
  * descriptions[]
+ 
+`GET /user/$user_id/image/$img_id` gets information of image $img_id of $user_id

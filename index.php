@@ -16,12 +16,18 @@ ToroHook::add("404", function () {
 Toro::serve(array(
     "/diary/" => "diariesHandler",
     "/diary/:alpha" => "diaryHandler",
-    "/diary/:alpha/comment" => "CommentHandler",
+    "/diary/:alpha/comment/" => "CommentHandler",
     "/hello/" => "HelloHandler",
     "/" => "HelloHandler",
     "/user/:number/image/" => "ImagesHandler",
+    "/user/:number/image/:number" => "ImageHandler",
     /* Naming Convention
      * To make our life easier, we'll use only singular terms in URL,
      * For Handlers' names, use singular or plural corresponding to the usage
+     * the ending with / indicates a group
+     * the ending without / indicates an individual resource
+     * ':string' => '([a-zA-Z]+)',
+     * ':number' => '([0-9]+)',
+     * ':alpha' => '([a-zA-Z0-9-_]+)'
      * Happy coding :) */
 ));
