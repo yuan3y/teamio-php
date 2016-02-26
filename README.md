@@ -52,14 +52,19 @@ This is an uncompleted feature, please refer to [http://bshaffer.github.io/oauth
 
 
 `GET /user/` retrieveS a list of all user_id
+
 `POST /user/` creates a new user (form field: userInfo)
 
 `GET /user/$id` gets info of the user
+
 `POST /user/$id` update
 
 `GET /record/` aggregated record of all users
+
 `GET /record/user/$user_id` gets all record of user $user_id
 
 `GET /game/match_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 images.
+
 `GET /game/match_image/user/$id` generates a new game, with id, then an array of matches, each contains 1 image, 4 names.
+
 `POST /game/$game_id` records game result score (form field: result)
