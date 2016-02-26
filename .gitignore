@@ -47,5 +47,9 @@ crashlytics.properties
 crashlytics-build.properties
 
 # Created by .ignore support plugin (hsz.mobi)
-/uploads/*
+
+# Self-defined
 /lib/mysql.php
+/uploads/*
+!/uploads/06c0153d.jpg
+!/uploads/ee6a9fdc.jpg
