@@ -51,6 +51,7 @@ class Toro
             }
         }
 
+        header("Access-Control-Allow-Origin: *"); #added to allow cross origin api call -yuan3y
         if ($handler_instance) {
             unset($regex_matches[0]);
 
