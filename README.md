@@ -76,10 +76,54 @@ This will get back the inserted data:
 }
 ```
 
+`PUT /user/$user_id/image/$image_id` requires the following fields:
+
+* picture
+* friend_name
+* description
+ 
+Please note that these fields are singular.
+This will get back the updated data:
+```javascript
+{
+  "id": "2",
+  "friend_name": "Yuan Yiyang",
+  "description": "He codes.",
+  "filename": "ee6a9fdc.jpg"
+}
+```
+
+`DELETE /user/$user_id/image/$image_id` removes a specific image.
+The result
+success:
+```javascript
+{
+  "success": true,
+  "row_count": 1
+}
+```
+failure:
+```javascript
+{
+  "success": false,
+  "row_count": 0
+}
+```
 
 `GET /user/$user_id/image/$img_id` gets information of image $img_id of $user_id
 
-`GET /user/` retrieveS a list of all user_id
+This will get the image data:
+```javascript
+{
+  "id": "2",
+  "friend_name": "Yuan Yiyang",
+  "description": "He codes.",
+  "filename": "ee6a9fdc.jpg"
+}
+```
+
+
+`GET /user/` retrieves a list of all user_id
 
 `POST /user/` creates a new user (form field: userInfo)
 
