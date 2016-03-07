@@ -14,6 +14,47 @@ function get_diaries($user_id)
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function get_users()
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_user_by_email($email)
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user WHERE email=:email");
+    $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function get_user_by_id($id)
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user WHERE id=:id");
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function new_user($email)
+{
+    $query = MySQL::getInstance()->prepare("INSERT INTO user (email) VALUES (:email)");
+    $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->execute();
+    return get_user_by_email($email);
+}
+
+function update_user($id, $email)
+{
+    $query = MySQL::getInstance()->prepare("UPDATE user SET email = :email WHERE id = :id");
+    $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return get_user_by_id($id);
+}
+
+
 function get_images($user_id)
 {
     $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename FROM images WHERE user_id=:user_id");
@@ -21,58 +62,63 @@ function get_images($user_id)
     $query->execute();
     $result = $query->fetchall(PDO::FETCH_ASSOC);
     for ($i = 0; $i < count($result); ++$i) {
-        $result[$i]['filename']=UPLOADS_PATH.$result[$i]['filename'];
+        $result[$i]['filename'] = UPLOADS_PATH . $result[$i]['filename'];
     }
     return $result;
 }
 
-function get_image_by_user_id_and_filename($user_id,$filename){
+function get_image_by_user_id_and_filename($user_id, $filename)
+{
     $query = MySQL::getInstance()->prepare("SELECT * FROM images WHERE user_id=:user_id AND filename=:filename");
-    $query->bindValue(':user_id',$user_id,PDO::PARAM_INT);
-    $query->bindValue(':filename',$filename,PDO::PARAM_STR);
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':filename', $filename, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    if (key_exists('filename',$result)) $result['filename'] = UPLOADS_PATH.$result['filename'];
+    if (key_exists('filename', $result)) $result['filename'] = UPLOADS_PATH . $result['filename'];
     return $result;
 }
 
-function get_image_by_user_id_and_img_id($user_id,$img_id){
+function get_image_by_user_id_and_img_id($user_id, $img_id)
+{
     $query = MySQL::getInstance()->prepare("SELECT * FROM images WHERE user_id=:user_id AND id=:img_id");
-    $query->bindValue(':user_id',$user_id,PDO::PARAM_INT);
-    $query->bindValue(':img_id',$img_id,PDO::PARAM_INT);
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':img_id', $img_id, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    if (key_exists('filename',$result)) $result['filename'] = UPLOADS_PATH.$result['filename'];
+    if (key_exists('filename', $result)) $result['filename'] = UPLOADS_PATH . $result['filename'];
     return $result;
 }
 
-function delete_image($user_id,$img_id){
+function delete_image($user_id, $img_id)
+{
     $query = MySQL::getInstance()->prepare("DELETE FROM images WHERE user_id=:user_id AND id=:img_id");
-    $query->bindValue(':user_id',$user_id,PDO::PARAM_INT);
-    $query->bindValue(':img_id',$img_id,PDO::PARAM_INT);
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':img_id', $img_id, PDO::PARAM_INT);
     $query->execute();
-    return array("success"=> ($query->rowCount()>0) ,"row_count" => $query->rowCount());
+    return array("success" => ($query->rowCount() > 0), "row_count" => $query->rowCount());
 }
 
-function insert_image($user_id,$friend_name,$description='',$filename){
-    $query = MySQL::getInstance()->prepare("INSERT INTO images (user_id, friend_name, description, filename) Values (:user_id, :friend_name, :description, :filename)");
-    $query->bindValue('user_id',$user_id,PDO::PARAM_INT);
-    $query->bindValue('friend_name',$friend_name,PDO::PARAM_STR);
-    $query->bindValue('description',$description,PDO::PARAM_STR);
-    $query->bindValue('filename',$filename,PDO::PARAM_STR);
+function insert_image($user_id, $friend_name, $description = '', $filename)
+{
+    $query = MySQL::getInstance()->prepare("INSERT INTO images (user_id, friend_name, description, filename) VALUES (:user_id, :friend_name, :description, :filename)");
+    $query->bindValue('user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue('friend_name', $friend_name, PDO::PARAM_STR);
+    $query->bindValue('description', $description, PDO::PARAM_STR);
+    $query->bindValue('filename', $filename, PDO::PARAM_STR);
     $query->execute();
-    return get_image_by_user_id_and_filename($user_id,$filename);
+    return get_image_by_user_id_and_filename($user_id, $filename);
 }
 
-function update_image($user_id,$img_id,$friend_name,$description='',$filename){
+function update_image($user_id, $img_id, $friend_name, $description = '', $filename)
+{
     $query = MySQL::getInstance()->prepare("UPDATE images SET friend_name=:friend_name, description=:description, filename=:filename WHERE user_id=:user_id AND id=:img_id");
-    $query->bindValue('user_id',$user_id,PDO::PARAM_INT);
-    $query->bindValue('friend_name',$friend_name,PDO::PARAM_STR);
-    $query->bindValue('description',$description,PDO::PARAM_STR);
-    $query->bindValue('filename',$filename,PDO::PARAM_STR);
-    $query->bindValue('img_id',$img_id,PDO::PARAM_INT);
+    $query->bindValue('user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue('friend_name', $friend_name, PDO::PARAM_STR);
+    $query->bindValue('description', $description, PDO::PARAM_STR);
+    $query->bindValue('filename', $filename, PDO::PARAM_STR);
+    $query->bindValue('img_id', $img_id, PDO::PARAM_INT);
     $query->execute();
-    return get_image_by_user_id_and_filename($user_id,$filename);
+    return get_image_by_user_id_and_filename($user_id, $filename);
 }
 
 function get_diary_by_slug($slug)
