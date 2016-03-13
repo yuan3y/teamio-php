@@ -39,7 +39,7 @@ This is an uncompleted feature, please refer to [http://bshaffer.github.io/oauth
 
 ## API Usage
 
-`GET /user/$user_id/image/` gets a list of images with associated properties of a given user based on $user_id
+[`GET /user/$user_id/image/`](http://php-teamio.rhcloud.com/user/1/image/) gets a list of images with associated properties of a given user based on $user_id
 
 * Sample Data:
 ```javascript
@@ -110,7 +110,7 @@ failure:
 }
 ```
 
-`GET /user/$user_id/image/$img_id` gets information of image $img_id of $user_id
+[`GET /user/$user_id/image/$img_id`](http://php-teamio.rhcloud.com/user/1/image/1) gets information of image $img_id of $user_id
 
 This will get the image data:
 ```javascript
@@ -123,7 +123,7 @@ This will get the image data:
 ```
 
 
-`GET /user/` retrieves a list of all user (id and email)
+[`GET /user/`](http://php-teamio.rhcloud.com/user/) retrieves a list of all user (id and email)
 
 ```javascript
 [
@@ -147,7 +147,7 @@ This will get the image data:
 ```
 
 
-`GET /user/$id` gets info of the user
+[`GET /user/$id`](http://php-teamio.rhcloud.com/user/1/) gets info of the user
 
 ```javascript
 {
@@ -184,7 +184,7 @@ This will get the image data:
 }
 ```
 
-`GET /record/` aggregated record of all users
+[`GET /record/`](http://php-teamio.rhcloud.com/record/) aggregated record of all users
 
 ```javascript
 [
@@ -203,7 +203,7 @@ This will get the image data:
 ]
 ```
 
-`GET /user/$user_id/record/` gets all record of user $user_id
+[`GET /user/$user_id/record/`](http://php-teamio.rhcloud.com/user/1/record/) gets all record of user $user_id
 
 ```javascript
 [
@@ -240,7 +240,7 @@ This will get the image data:
 }
 ```
 
-`GET /game/find_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 photos.
+[`GET /game/find_name/user/$id`](http://php-teamio.rhcloud.com/game/find_name/user/1) generates a new game, with id, then an array of matches, each contains 1 name, 4 photos.
 You can update the game record by PUT /user/$user_id/record/$game_id after the game.
 
 ```javascript
@@ -274,7 +274,7 @@ You can update the game record by PUT /user/$user_id/record/$game_id after the g
 }
 ```
 
-`GET /game/find_image/user/$id` generates a new game, with id, then an array of matches, each contains 1 photo, 4 names.
+[`GET /game/find_image/user/$id`](http://php-teamio.rhcloud.com/game/find_image/user/1) generates a new game, with id, then an array of matches, each contains 1 photo, 4 names.
 
 ```javascript
 {
@@ -305,5 +305,3 @@ You can update the game record by PUT /user/$user_id/record/$game_id after the g
   ]
 }
 ```
-
-`POST /game/$game_id` records game result score (form field: result)
