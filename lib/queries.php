@@ -31,24 +31,28 @@ function get_user_by_email($email)
 
 function get_user_by_id($id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users WHERE id=:id");
+    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday FROM users WHERE id=:id");
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
-function new_user($email)
+function new_user($email, $name, $birthday)
 {
-    $query = MySQL::getInstance()->prepare("INSERT INTO users (email) VALUES (:email)");
+    $query = MySQL::getInstance()->prepare("INSERT INTO users (email, name, birthday) VALUES (:email, :name, :birthday)");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->bindValue(':name', $email, PDO::PARAM_STR);
+    $query->bindValue(':birthday', $email, PDO::PARAM_STR);
     $query->execute();
     return get_user_by_email($email);
 }
 
-function update_user($id, $email)
+function update_user($id, $email, $name, $birthday)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email WHERE id = :id");
+    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday  WHERE id = :id");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->bindValue(':name', $email, PDO::PARAM_STR);
+    $query->bindValue(':birthday', $email, PDO::PARAM_STR);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return get_user_by_id($id);

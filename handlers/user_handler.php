@@ -21,6 +21,6 @@ class userHandler
     function put_xhr($id)
     {
         $params = _parsePut();
-        update_user($id, $params['email']);
+        update_user($id, $params['email'], $params['name'], $params['birthday']);
     }
 }
