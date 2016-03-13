@@ -123,13 +123,66 @@ This will get the image data:
 ```
 
 
-`GET /user/` retrieves a list of all user_id
+`GET /user/` retrieves a list of all user (id and email)
 
-`POST /user/` creates a new user (form field: userInfo)
+```javascript
+[
+  {
+    "id": "1",
+    "email": "user1@example.com"
+  },
+  {
+    "id": "2",
+    "email": "user2@example.com"
+  },
+  {
+    "id": "3",
+    "email": "user3@example.com"
+  },
+  {
+    "id": "4",
+    "email": "user4@example.com"
+  }
+]
+```
+
 
 `GET /user/$id` gets info of the user
 
-`POST /user/$id` update
+```javascript
+{
+  "id": "1",
+  "email": "user1@example.com",
+  "name": "Tan Ah Kau",
+  "birthday": "1965-01-01"
+}
+```
+
+`POST /user/` creates a new user, with following fields:
+
+* email
+* name
+* birthday (in format of yyyy-mm-dd)
+
+```javascript
+{
+  "id": "1",
+  "email": "user1@example.com",
+  "name": "Tan Ah Kau",
+  "birthday": "1965-01-01"
+}
+```
+
+`PUT /user/$id` update
+
+```javascript
+{
+  "id": "1",
+  "email": "user1@example.com",
+  "name": "Tan Ah Kau",
+  "birthday": "1965-01-01"
+}
+```
 
 `GET /record/` aggregated record of all users
 
