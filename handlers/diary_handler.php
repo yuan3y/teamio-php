@@ -2,22 +2,19 @@
 
 class diaryHandler
 {
-    function get($slug)
+    function get($user_id,$id)
     {
-        $diary = get_diary_by_slug($slug);
-        $comments = get_diary_comments($diary['id']);
-        include($_SERVER["DOCUMENT_ROOT"] . "/views/diary.php");
+        $this->get_xhr($user_id,$id);
     }
 
-    function get_xhr($slug)
+    function get_xhr($user_id,$id)
     {
-        $diary = get_diary_by_slug($slug);
-        $comments = get_diary_comments($diary['id']);
+        $diary = get_diary_by_user_and_id($user_id,$id);
         _response($diary);
     }
 
-    function delete_xhr($slug)
+    function delete_xhr($user_id,$id)
     {
-        delete_diary_by_slug($slug);
+        delete_diary_by_user_and_id($user_id,$id);
     }
 }
