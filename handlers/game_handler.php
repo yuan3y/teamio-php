@@ -9,7 +9,7 @@ class GameHandler
 
     function get_xhr($type,$user_id)
     {
-        $games = generate_random_games($type,$user_id);
+        $games = generate_random_games($user_id);
         _response($games);
     }
 
