@@ -3,7 +3,7 @@
 foreach (glob("handlers/*_handler.php") as $filename) {
     require $filename;
 }
-require("lib/markdown.php");
+require("lib/Parsedown.php");
 require("lib/mysql.php");
 require("lib/queries.php");
 require("lib/toro.php");

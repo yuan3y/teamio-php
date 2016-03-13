@@ -4,7 +4,7 @@ class HelloHandler
 {
     function get()
     {
-        echo "Hello, world";
+        echo (new Parsedown)->text(file_get_contents('README.md'));
     }
 
     function get_xhr()
