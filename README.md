@@ -186,7 +186,24 @@ This will get the image data:
 
 `GET /record/` aggregated record of all users
 
-`GET /record/user/$user_id` gets all record of user $user_id
+`GET /user/$user_id/record/` gets all record of user $user_id
+
+```javascript
+[
+  {
+    "type": "FIND_NAME",
+    "win_games": "7",
+    "total_games": "10",
+    "win_ratio": "0.7000"
+  },
+  {
+    "type": "FIND_FACE",
+    "win_games": "6",
+    "total_games": "10",
+    "win_ratio": "0.6000"
+  }
+]
+```
 
 `GET /game/match_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 images.
 
