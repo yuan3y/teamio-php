@@ -130,6 +130,24 @@ function get_diary_by_user_and_id($user_id,$id)
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
+
+function update_diary($id, $title, $body, $published, $user_id)
+{
+    $old_diary=get_diary_by_user_and_id($user_id,$id);
+    if (is_null($old_diary)) return null;
+    if (!$title) $title=$old_diary['title'];
+    if (!$body) $body=$old_diary['body'];
+    $query = MySQL::getInstance()->prepare("UPDATE diaries SET title = :title, body=:body, published=:published WHERE id = :id AND user_id=:user_id");
+    $query->bindValue(':title', $title, PDO::PARAM_STR);
+    $query->bindValue(':body', $body, PDO::PARAM_STR);
+    $query->bindValue(':published', $published, PDO::PARAM_STR);
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return get_diary_by_user_and_id($user_id,$id);
+}
+
+
 function delete_diary_by_user_and_id($user_id,$id)
 {
     $query = MySQL::getInstance()->prepare("DELETE FROM diaries WHERE user_id=:user_id AND id=:id");
@@ -147,5 +165,5 @@ function new_diary($title, $body, $published, $user_id)
     $query->bindValue(':published', $published, PDO::PARAM_STR);
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
-
+    //todo: return the newly generated diary.
 }
