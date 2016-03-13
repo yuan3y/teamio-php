@@ -125,7 +125,7 @@ function update_image($user_id, $img_id, $friend_name, $description = '', $filen
     return get_image_by_user_id_and_filename($user_id, $filename);
 }
 
-function get_diary_by_user_and_id($user_id,$id)
+function get_diary_by_user_and_id($user_id, $id)
 {
     $query = MySQL::getInstance()->prepare("SELECT * FROM diaries WHERE user_id=:user_id AND id=:id");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -137,10 +137,10 @@ function get_diary_by_user_and_id($user_id,$id)
 
 function update_diary($id, $title, $body, $published, $user_id)
 {
-    $old_diary=get_diary_by_user_and_id($user_id,$id);
+    $old_diary = get_diary_by_user_and_id($user_id, $id);
     if (is_null($old_diary)) return null;
-    if (!$title) $title=$old_diary['title'];
-    if (!$body) $body=$old_diary['body'];
+    if (!$title) $title = $old_diary['title'];
+    if (!$body) $body = $old_diary['body'];
     $query = MySQL::getInstance()->prepare("UPDATE diaries SET title = :title, body=:body, published=:published WHERE id = :id AND user_id=:user_id");
     $query->bindValue(':title', $title, PDO::PARAM_STR);
     $query->bindValue(':body', $body, PDO::PARAM_STR);
@@ -148,11 +148,11 @@ function update_diary($id, $title, $body, $published, $user_id)
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
-    return get_diary_by_user_and_id($user_id,$id);
+    return get_diary_by_user_and_id($user_id, $id);
 }
 
 
-function delete_diary_by_user_and_id($user_id,$id)
+function delete_diary_by_user_and_id($user_id, $id)
 {
     $query = MySQL::getInstance()->prepare("DELETE FROM diaries WHERE user_id=:user_id AND id=:id");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -175,7 +175,7 @@ function new_diary($title, $body, $published, $user_id)
 
 function get_record_by_user($user_id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT type, SUM(win) as win_games, sum(total) as total_games, SUM(win)/sum(total) as win_ratio FROM records where user_id=:user_id and win is not null GROUP BY type");
+    $query = MySQL::getInstance()->prepare("SELECT type, SUM(win) AS win_games, sum(total) AS total_games, SUM(win)/sum(total) AS win_ratio FROM records WHERE user_id=:user_id AND win IS NOT NULL GROUP BY type");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -191,9 +191,9 @@ function update_record($user_id, $id, $win)
     return array("success" => ($query->rowCount() > 0), "row_count" => $query->rowCount());
 }
 
-function get_record_by_user_and_id($user_id,$id)
+function get_record_by_user_and_id($user_id, $id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT * FROM records where user_id=:user_id AND id=:id");
+    $query = MySQL::getInstance()->prepare("SELECT * FROM records WHERE user_id=:user_id AND id=:id");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
@@ -202,7 +202,19 @@ function get_record_by_user_and_id($user_id,$id)
 
 function get_aggregated_record()
 {
-    $query = MySQL::getInstance()->prepare("SELECT type, SUM(win) as win_games, sum(total) as total_games, SUM(win)/sum(total) as win_ratio FROM records where win is not null GROUP BY type");
+    $query = MySQL::getInstance()->prepare("SELECT type, SUM(win) AS win_games, sum(total) AS total_games, SUM(win)/sum(total) AS win_ratio FROM records WHERE win IS NOT NULL GROUP BY type");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function generate_random_games($user_id)
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename
+FROM images
+ORDER BY RAND()
+LIMIT 10
+");
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
