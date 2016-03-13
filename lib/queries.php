@@ -16,14 +16,14 @@ function get_diaries($user_id)
 
 function get_users()
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user");
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function get_user_by_email($email)
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user WHERE email=:email");
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users WHERE email=:email");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ function get_user_by_email($email)
 
 function get_user_by_id($id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM user WHERE id=:id");
+    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users WHERE id=:id");
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ function get_user_by_id($id)
 
 function new_user($email)
 {
-    $query = MySQL::getInstance()->prepare("INSERT INTO user (email) VALUES (:email)");
+    $query = MySQL::getInstance()->prepare("INSERT INTO users (email) VALUES (:email)");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->execute();
     return get_user_by_email($email);
@@ -47,7 +47,7 @@ function new_user($email)
 
 function update_user($id, $email)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE user SET email = :email WHERE id = :id");
+    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email WHERE id = :id");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
