@@ -154,7 +154,7 @@ function delete_diary_by_user_and_id($user_id,$id)
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
-    return;
+    return array("success" => ($query->rowCount() > 0), "row_count" => $query->rowCount());
 }
 
 function new_diary($title, $body, $published, $user_id)
@@ -165,5 +165,5 @@ function new_diary($title, $body, $published, $user_id)
     $query->bindValue(':published', $published, PDO::PARAM_STR);
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
-    //todo: return the newly generated diary.
+    return get_diary_by_user_and_id($user_id, MySQL::getInstance()->lastInsertId());
 }
