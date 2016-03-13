@@ -207,7 +207,7 @@ function get_aggregated_record()
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function generate_random_games($user_id,$number_of_games=10)
+function generate_random_games($user_id, $number_of_games = 10)
 {
     $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename
 FROM images
@@ -216,63 +216,62 @@ ORDER BY RAND()
 LIMIT :number_of_games
 ");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $query->bindValue(':number_of_games', $number_of_games, PDO::PARAM_INT);
+    $query->bindValue(':number_of_games', (int) $number_of_games, PDO::PARAM_INT);
     $query->execute();
 
     $images = $query->fetchAll(PDO::FETCH_ASSOC);
-    $result=[];
-    $record_query = MySQL::getInstance()->prepare("INSERT INTO records (user_id, type, total) VALUES (:user_id, :type, :total)");
-    $record_query ->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $record_query ->bindValue(':type', "FIND_NAME", PDO::PARAM_STR);
-    $record_query ->bindValue(':total', 10, PDO::PARAM_INT);
-    $record_query -> execute();
-    $game_id=MySQL::getInstance()->lastInsertId();
-    $result["game_id"]=$game_id;
-    $matches=[];
-    foreach ($images as $value) {
-        $choice_images = get_three_random_images($value['id'],$user_id);
-        $choice_images[]=array('filename'=>$value['filename']);
-        shuffle($choice_images);
-
-        $correct_answer = get_correct_answer($choice_images, $value['filename']);
-        $photo =[];
-        foreach ($choice_images as $c) {
-            $photo[]=$c['filename'];
-        }
-        $matches[]= array("name"=>$value['friend_name'],"description"=>$value['description'],"photo"=>$photo,"correct"=>$correct_answer);
-        // $choice_images represents the 4 images that are the choices
-        // $correct_answer represents the index of the current answer amongst the above 4 choices
-        // We now need to construct the json from these
-        // I cant seem to get the syntax right
-
-        /*
-         * {
-	"game_id": 123,
-	"matches": [{
-		"name": "TanOne",
-		"photo": ["https:\/\/serveraddress\/images\/image1.jpg",
-		"https:\/\/serveraddress\/images\/image2.jpg",
-		"https:\/\/serveraddress\/images\/image3.jpg",
-		"https:\/\/serveraddress\/images\/image4.jpg"],
-		"correct": 0
-	},
-	{
-		"name": "TanTwo",
-		"photo": ["https:\/\/serveraddress\/images\/image4.jpg",
-		"https:\/\/serveraddress\/images\/image5.jpg",
-		"https:\/\/serveraddress\/images\/image6.jpg",
-		"https:\/\/serveraddress\/images\/image7.jpg"],
-		"correct": 3
-	}]
+    return $images;
 }
-         * */
+
+function new_game($user_id, $type = "FIND_NAME", $total = 10)
+{
+    $record_query = MySQL::getInstance()->prepare("INSERT INTO records (user_id, type, total) VALUES (:user_id, :type, :total)");
+    $record_query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $record_query->bindValue(':type', $type, PDO::PARAM_STR);
+    $record_query->bindValue(':total', $total, PDO::PARAM_INT);
+    $record_query->execute();
+    $game_id = MySQL::getInstance()->lastInsertId();
+    return $game_id;
+}
+
+function gen_game($user_id, $game_id, $images, $type)
+{
+    $result = [];
+    $result["game_id"] = $game_id;
+    $matches = [];
+//    $debug = [];
+    foreach ($images as $value) {
+        $choice_images = get_three_random_images($value['id'], $user_id);
+        $choice_images[] = $value;
+        shuffle($choice_images);
+//        $debug[]=array("choice_images"=>$choice_images);
+        $correct_answer = get_correct_answer($choice_images, $value);
+
+        switch (strtolower($type)) {
+            case "find_name":
+                $photo = [];
+                foreach ($choice_images as $c) {
+                    $photo[] = UPLOADS_PATH . $c['filename'];
+                }
+                $res = array("name" => $value['friend_name'], "description" => $value['description'], "photo" => $photo, "correct" => $correct_answer);
+                break;
+            default:
+                $name = [];
+                foreach ($choice_images as $choice_image) {
+                    $name[] = $choice_image['friend_name'];
+                }
+                $res = array("photo" => UPLOADS_PATH . $value['filename'], "description" => $value['description'], "name" => $name, "correct" => $correct_answer);
+        }
+        $matches[] = $res;
     }
-    $result["matches"]=$matches;
+    $result["matches"] = $matches;
+//    $result['debug'] = $debug;
     return $result;
 }
 
-function get_three_random_images($exclude_image_id, $user_id) {
-    $query = MySQL::getInstance()->prepare("SELECT filename
+function get_three_random_images($exclude_image_id, $user_id)
+{
+    $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename
 FROM images
 WHERE id<>:id AND user_id=:user_id
 ORDER BY RAND()
@@ -285,13 +284,15 @@ LIMIT 3
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function get_correct_answer($choice_images, $correct_file_name) {
+function get_correct_answer($choice_images, $correct_image)
+{
     $index = 1;
     foreach ($choice_images as $image) {
-        if ($image['filename'] == $correct_file_name) {
+        if ($image == $correct_image) {
             return $index;
         } else {
             $index = $index + 1;
         }
     }
 }
+
