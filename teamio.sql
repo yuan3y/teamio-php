@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.5.4.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2016 at 10:42 PM
--- Server version: 5.6.28-0ubuntu0.14.04.1
+-- Generation Time: Mar 13, 2016 at 10:52 PM
+-- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `teamio`
@@ -23,64 +23,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
---
-
-CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `diary_id` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL DEFAULT '',
-  `body` text NOT NULL,
-  `posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `diary_id`, `name`, `body`, `posted`) VALUES
-(1, 1, 'Joe Shmoe', 'First!', '2012-08-18 08:32:52'),
-(2, 2, 'TestName', 'Test Message', '2016-02-18 10:27:34');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `diaries`
 --
 
+DROP TABLE IF EXISTS `diaries`;
 CREATE TABLE IF NOT EXISTS `diaries` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `title` varchar(25) NOT NULL DEFAULT '',
-  `slug` varchar(25) NOT NULL,
   `body` text NOT NULL,
   `published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  PRIMARY KEY (`id`),
+  KEY `diaries_users_id_fk` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `diaries`
 --
 
-INSERT INTO `diaries` (`id`, `user_id`, `title`, `slug`, `body`, `published`) VALUES
-(1, 1, 'First Post', 'first-post', 'This is the first post for Teamio. Hello, world?', '2012-08-18 08:28:10'),
-(2, 1, 'Second Post', 'second-post', 'Just another post to test out some features.\n\nLine break and *asterisks* to show Markdown integration.', '2012-08-18 08:39:03'),
-(3, 1, 'One More Post', 'one-more-post', 'No need Content-Type, Posted from my browser', '2016-02-18 14:44:03'),
-(4, 1, 'One More Post', 'one-more-post2', 'No need Content-Type, Posted from my browser', '2016-02-18 14:57:03');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gameRecord`
---
-
-CREATE TABLE IF NOT EXISTS `gameRecord` (
-  `gameId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `gameType` varchar(10) NOT NULL,
-  `gameResult` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `diaries` (`id`, `user_id`, `title`, `body`, `published`) VALUES
+(1, 1, 'First Post', 'This is the first post for Teamio. Hello, world?', '2012-08-18 08:28:10'),
+(2, 1, 'Second Post', 'Just another post to test out some features.\n\nLine break and *asterisks* to show Markdown integration.', '2012-08-18 08:39:03'),
+(3, 1, 'One More Post', 'No need Content-Type, Posted from my browser', '2016-02-18 14:44:03'),
+(4, 1, 'One More Post', 'No need Content-Type, Posted from my browser', '2016-02-18 14:57:03');
 
 -- --------------------------------------------------------
 
@@ -88,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `gameRecord` (
 -- Table structure for table `images`
 --
 
+DROP TABLE IF EXISTS `images`;
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -95,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `description` text,
   `filename` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `images`
@@ -111,6 +77,7 @@ INSERT INTO `images` (`id`, `user_id`, `friend_name`, `description`, `filename`)
 -- Table structure for table `oauth_access_tokens`
 --
 
+DROP TABLE IF EXISTS `oauth_access_tokens`;
 CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   `access_token` varchar(40) NOT NULL,
   `client_id` varchar(80) NOT NULL,
@@ -136,6 +103,7 @@ INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expi
 -- Table structure for table `oauth_authorization_codes`
 --
 
+DROP TABLE IF EXISTS `oauth_authorization_codes`;
 CREATE TABLE IF NOT EXISTS `oauth_authorization_codes` (
   `authorization_code` varchar(40) NOT NULL,
   `client_id` varchar(80) NOT NULL,
@@ -162,6 +130,7 @@ INSERT INTO `oauth_authorization_codes` (`authorization_code`, `client_id`, `use
 -- Table structure for table `oauth_clients`
 --
 
+DROP TABLE IF EXISTS `oauth_clients`;
 CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `client_id` varchar(80) NOT NULL,
   `client_secret` varchar(80) DEFAULT NULL,
@@ -185,6 +154,7 @@ INSERT INTO `oauth_clients` (`client_id`, `client_secret`, `redirect_uri`, `gran
 -- Table structure for table `oauth_jwt`
 --
 
+DROP TABLE IF EXISTS `oauth_jwt`;
 CREATE TABLE IF NOT EXISTS `oauth_jwt` (
   `client_id` varchar(80) NOT NULL,
   `subject` varchar(80) DEFAULT NULL,
@@ -198,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `oauth_jwt` (
 -- Table structure for table `oauth_refresh_tokens`
 --
 
+DROP TABLE IF EXISTS `oauth_refresh_tokens`;
 CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   `refresh_token` varchar(40) NOT NULL,
   `client_id` varchar(80) NOT NULL,
@@ -213,6 +184,7 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
 -- Table structure for table `oauth_scopes`
 --
 
+DROP TABLE IF EXISTS `oauth_scopes`;
 CREATE TABLE IF NOT EXISTS `oauth_scopes` (
   `scope` text,
   `is_default` tinyint(1) DEFAULT NULL
@@ -224,6 +196,7 @@ CREATE TABLE IF NOT EXISTS `oauth_scopes` (
 -- Table structure for table `oauth_users`
 --
 
+DROP TABLE IF EXISTS `oauth_users`;
 CREATE TABLE IF NOT EXISTS `oauth_users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(2000) DEFAULT NULL,
@@ -235,25 +208,82 @@ CREATE TABLE IF NOT EXISTS `oauth_users` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relationships`
+-- Table structure for table `records`
 --
 
-CREATE TABLE IF NOT EXISTS `relationships` (
-  `guardianId` int(11) NOT NULL,
-  `wardId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `records`;
+CREATE TABLE IF NOT EXISTS `records` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `type` enum('FIND_NAME','FIND_FACE') DEFAULT NULL,
+  `total` int(11) NOT NULL,
+  `win` int(11) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `game_user_id_fk` (`user_id`),
+  KEY `records_games_type_fk` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `records`
+--
+
+INSERT INTO `records` (`id`, `user_id`, `type`, `total`, `win`, `timestamp`) VALUES
+(1, 1, 'FIND_NAME', 10, 8, '2016-03-13 14:10:46'),
+(2, 1, 'FIND_FACE', 10, 6, '2016-03-13 14:11:51');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `relationships`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `relationships`;
+CREATE TABLE IF NOT EXISTS `relationships` (
+  `guardianId` int(11) NOT NULL,
+  `wardId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `birthday` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `name`, `birthday`) VALUES
+(1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01'),
+(2, 'user2@example.com', 'Tan Ah Kau', '1964-12-31'),
+(3, 'user3@example.com', 'Tom Aw', '1964-08-31'),
+(4, 'user4@example.com', 'Foo Choo', '1965-08-09');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `diaries`
+--
+ALTER TABLE `diaries`
+  ADD CONSTRAINT `diaries_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `records`
+--
+ALTER TABLE `records`
+  ADD CONSTRAINT `game_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
