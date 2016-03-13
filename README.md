@@ -186,6 +186,23 @@ This will get the image data:
 
 `GET /record/` aggregated record of all users
 
+```javascript
+[
+  {
+    "type": "FIND_NAME",
+    "win_games": "8",
+    "total_games": "10",
+    "win_ratio": "0.8000"
+  },
+  {
+    "type": "FIND_FACE",
+    "win_games": "6",
+    "total_games": "10",
+    "win_ratio": "0.6000"
+  }
+]
+```
+
 `GET /user/$user_id/record/` gets all record of user $user_id
 
 ```javascript
@@ -208,7 +225,6 @@ This will get the image data:
 `PUT /user/$user_id/record/$record_id` update number of games won by user for a particular game, with field:
 
 * win : number of game won
-
 
 ```javascript
 {

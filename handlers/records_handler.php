@@ -13,3 +13,16 @@ class RecordsHandler
         _response($records);
     }
 }
+
+class RecordsAggregateHandler
+{
+    function get()
+    {
+        $this->get_xhr();
+    }
+
+    function get_xhr()
+    {
+        _response(get_aggregated_record());
+    }
+}

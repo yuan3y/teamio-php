@@ -199,3 +199,10 @@ function get_record_by_user_and_id($user_id,$id)
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function get_aggregated_record()
+{
+    $query = MySQL::getInstance()->prepare("SELECT type, SUM(win) as win_games, sum(total) as total_games, SUM(win)/sum(total) as win_ratio FROM records where win is not null GROUP BY type");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}

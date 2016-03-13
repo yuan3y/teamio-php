@@ -22,7 +22,7 @@ Toro::serve(array(
     "/user/:number/image/:number" => "ImageHandler",
     "/user/:number/diary/" => "diariesHandler",
     "/diary/:alpha" => "diaryHandler",
-//    "/record/" => "RecordsAggregateHandler",
+    "/record/" => "RecordsAggregateHandler",
     "/user/:number/record/" => "RecordsHandler",
     "/user/:number/record/:number" => "RecordHandler",
     /* Naming Convention
