@@ -79,10 +79,10 @@ function _response($data, $status = 200, $content_type = "application/json")
     });
     ToroHook::add("after_request", function () use (&$status) {
         ToroHook::fire("$status");
-        if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) {
+        /*if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) {
             echo "\n\r<br>\n\r";
             var_dump($_SERVER);
-        }
+        }*/
     });
 }
 
