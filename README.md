@@ -205,6 +205,26 @@ This will get the image data:
 ]
 ```
 
+`PUT /user/$user_id/record/$record_id` update number of games won by user for a particular game, with field:
+
+* win : number of game won
+
+
+```javascript
+{
+  "success": true,
+  "row_count": 1
+}
+```
+
+```javascript
+{
+  "success": false,
+  "row_count": 0
+}
+```
+
+
 `GET /game/match_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 images.
 
 `GET /game/match_image/user/$id` generates a new game, with id, then an array of matches, each contains 1 image, 4 names.

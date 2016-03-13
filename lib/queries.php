@@ -183,9 +183,19 @@ function get_record_by_user($user_id)
 
 function update_record($user_id, $id, $win)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE records SET win=:win WHERE id=:id AND $user_id=:user_id");
+    $query = MySQL::getInstance()->prepare("UPDATE records SET win=:win WHERE id=:id AND user_id=:user_id");
     $query->bindValue(':win', $win, PDO::PARAM_INT);
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
     return array("success" => ($query->rowCount() > 0), "row_count" => $query->rowCount());
+}
+
+function get_record_by_user_and_id($user_id,$id)
+{
+    $query = MySQL::getInstance()->prepare("SELECT * FROM records where user_id=:user_id AND id=:id");
+    $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
