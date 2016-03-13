@@ -207,14 +207,16 @@ function get_aggregated_record()
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function generate_random_games($user_id)
+function generate_random_games($user_id,$number_of_games=10)
 {
     $query = MySQL::getInstance()->prepare("SELECT id, friend_name, description, filename
 FROM images
+WHERE user_id=:user_id
 ORDER BY RAND()
-LIMIT 10
+LIMIT :number_of_games
 ");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $query->bindValue(':number_of_games', $number_of_games, PDO::PARAM_INT);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
