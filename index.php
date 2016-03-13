@@ -14,15 +14,14 @@ ToroHook::add("404", function () {
 });
 
 Toro::serve(array(
-    "/user/:number/diary/" => "diariesHandler",
-    "/diary/:alpha" => "diaryHandler",
-    "/diary/:alpha/comment/" => "CommentHandler",
     "/hello/" => "HelloHandler",
     "/" => "HelloHandler",
-    "/user/:number/image/" => "ImagesHandler",
-    "/user/:number/image/:number" => "ImageHandler",
     "/user/" => "UsersHandler",
     "/user/:number" => "UserHandler",
+    "/user/:number/image/" => "ImagesHandler",
+    "/user/:number/image/:number" => "ImageHandler",
+    "/user/:number/diary/" => "diariesHandler",
+    "/diary/:alpha" => "diaryHandler",
     /* Naming Convention
      * To make our life easier, we'll use only singular terms in URL,
      * For Handlers' names, use singular or plural corresponding to the usage
