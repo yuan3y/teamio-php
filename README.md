@@ -240,9 +240,70 @@ This will get the image data:
 }
 ```
 
+`GET /game/find_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 photos.
+You can update the game record by PUT /user/$user_id/record/$game_id after the game.
 
-`GET /game/match_name/user/$id` generates a new game, with id, then an array of matches, each contains 1 name, 4 images.
+```javascript
+{
+  "game_id": "2",
+  "matches": [
+    {
+      "name": "Samuel",
+      "description": "He reads minds.",
+      "photo": [
+        "\/uploads\/1317cd0d.jpg",
+        "\/uploads\/06c0153d.jpg",
+        "\/uploads\/4cf92575.jpg",
+        "\/uploads\/d82631e5.jpg"
+      ],
+      "correct": 2
+    },
+    {
+      "name": "Eug\u00e8ne Gavrilin",
+      "description": "He shoots.",
+      "photo": [
+        "\/uploads\/362f6162.jpg",
+        "\/uploads\/e4a4401b.jpg",
+        "\/uploads\/d82631e5.jpg",
+        "\/uploads\/1317cd0d.jpg"
+      ],
+      "correct": 3
+    }, ...
+    }
+  ]
+}
+```
 
-`GET /game/match_image/user/$id` generates a new game, with id, then an array of matches, each contains 1 image, 4 names.
+`GET /game/find_image/user/$id` generates a new game, with id, then an array of matches, each contains 1 photo, 4 names.
+
+```javascript
+{
+  "game_id": "3",
+  "matches": [
+    {
+      "photo": "\/uploads\/e4a4401b.jpg",
+      "description": "He plays chess.",
+      "name": [
+        "Benjamen Lim",
+        "Agrim Singh",
+        "Zhu Liang",
+        "Yuan Yiyang"
+      ],
+      "correct": 1
+    },
+    {
+      "photo": "\/uploads\/1317cd0d.jpg",
+      "description": "Geek",
+      "name": [
+        "Eug\u00e8ne Gavrilin",
+        "Jenni",
+        "Emily Li",
+        "Zhu Liang"
+      ],
+      "correct": 4
+    }, ...
+  ]
+}
+```
 
 `POST /game/$game_id` records game result score (form field: result)
