@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2016 at 10:52 PM
+-- Generation Time: Mar 14, 2016 at 02:17 AM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `description` text,
   `filename` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `images`
@@ -69,7 +69,15 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 INSERT INTO `images` (`id`, `user_id`, `friend_name`, `description`, `filename`) VALUES
 (1, 1, 'Samuel', 'He reads minds.', '06c0153d.jpg'),
-(2, 1, 'Yuan Yiyang', 'He codes.', 'ee6a9fdc.jpg');
+(2, 1, 'Yuan Yiyang', 'He codes.', 'ee6a9fdc.jpg'),
+(3, 1, 'Benjamen Lim', 'He plays chess.', 'e4a4401b.jpg'),
+(4, 1, 'Emily Li', 'The manager.', '5b258699.jpg'),
+(5, 1, 'EugÃ¨ne Gavrilin', 'He shoots.', 'd82631e5.jpg'),
+(6, 1, 'Serene Ping', 'Front End', '362f6162.jpg'),
+(7, 1, 'Zhu Liang', 'Geek', '1317cd0d.jpg'),
+(8, 1, 'Agrim Singh', 'King of Hackathon', '4cf92575.jpg'),
+(9, 1, 'Jenni', NULL, '168ef3b9.jpg'),
+(10, 1, 'Weichao Du', '', 'bcee031f.jpg');
 
 -- --------------------------------------------------------
 
