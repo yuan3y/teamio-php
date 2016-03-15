@@ -305,3 +305,73 @@ You can update the game record by PUT /user/$user_id/record/$game_id after the g
   ]
 }
 ```
+
+[`GET /user/$user_id/diary/`](http://php-teamio.rhcloud.com/user/1/diary/) list all diaries from the user of user_id. The default behaviour is order by descending published date (newest at top).
+
+```javascript
+[
+  {
+    "id": "2",
+    "user_id": "1",
+    "title": "Second Post",
+    "body": "Just another post to test out some features.\n\nLine break and *asterisks* to show Markdown integration.",
+    "published": "2012-08-18 16:39:03"
+  },
+  {
+    "id": "1",
+    "user_id": "1",
+    "title": "First Post",
+    "body": "This is the first post for Teamio. Hello, world?",
+    "published": "2012-08-18 16:28:10"
+  }
+]
+```
+
+`POST /user/$user_id/diary/` create a new diary for the user, with the following fields:
+* title : string
+* body : string
+* published : datetime string YYYY-MM-DD HH:MM:SS
+
+response is the created post if success.
+```javascript
+{
+  "id": "7",
+  "user_id": "1",
+  "title": "More Fun",
+  "body": "More fun More fun More fun",
+  "published": "2016-03-16 01:01:01"
+}
+```
+
+[`GET /user/$user_id/diary/$diary_id`](http://php-teamio.rhcloud.com/user/1/diary/1) get the particular diary of the user.
+```javascript
+{
+  "id": "1",
+  "user_id": "1",
+  "title": "First Post",
+  "body": "This is the first post for Teamio. Hello, world?",
+  "published": "2012-08-18 16:28:10"
+}
+```
+
+`PUT /user/$user_id/diary/$diary_id` update diary. fields refers to post.
+* title : string
+* body : string
+* published : datetime string YYYY-MM-DD HH:MM:SS (any or all of these) 
+
+success: the updated result
+```javascript
+{
+  "id": "5",
+  "user_id": "1",
+  "title": "Something like that",
+  "body": "Nobody but you",
+  "published": "2016-03-16 00:59:31"
+}
+```
+user_id or diary_id error:
+```javascript
+{
+  "error": "wrong user id or diary id"
+}
+```

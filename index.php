@@ -21,7 +21,7 @@ Toro::serve(array(
     "/user/:number/image/" => "ImagesHandler",
     "/user/:number/image/:number" => "ImageHandler",
     "/user/:number/diary/" => "diariesHandler",
-    "/diary/:alpha" => "diaryHandler",
+    "/user/:number/diary/:number" => "diaryHandler",
     "/record/" => "RecordsAggregateHandler",
     "/user/:number/record/" => "RecordsHandler",
     "/user/:number/record/:number" => "RecordHandler",

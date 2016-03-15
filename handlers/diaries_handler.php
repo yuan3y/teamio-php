@@ -19,7 +19,7 @@ class diariesHandler
 
     function post_xhr($user_id)
     {
-        $params = _set_default('title', 'slug', 'body', 'published');
-        new_diary($params['title'], $params['body'], $params['published'], $user_id);
+        $params = _set_default('title', 'body', 'published');
+        _response(new_diary($params['title'], $params['body'], $params['published'], $user_id));
     }
 }
