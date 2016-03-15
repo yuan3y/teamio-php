@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `diaries`;
 CREATE TABLE IF NOT EXISTS `diaries` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` varchar(25) NOT NULL DEFAULT '',
   `body` text NOT NULL,
-  `published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `diaries_users_id_fk` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `diaries`
@@ -44,8 +44,19 @@ CREATE TABLE IF NOT EXISTS `diaries` (
 INSERT INTO `diaries` (`id`, `user_id`, `title`, `body`, `published`) VALUES
 (1, 1, 'First Post', 'This is the first post for Teamio. Hello, world?', '2012-08-18 08:28:10'),
 (2, 1, 'Second Post', 'Just another post to test out some features.\n\nLine break and *asterisks* to show Markdown integration.', '2012-08-18 08:39:03'),
-(3, 1, 'One More Post', 'No need Content-Type, Posted from my browser', '2016-02-18 14:44:03'),
-(4, 1, 'One More Post', 'No need Content-Type, Posted from my browser', '2016-02-18 14:57:03');
+(3, 1, 'Something like that', 'Nobody but you', '2016-03-15 16:59:31'),
+(4, 1, 'After Midnight', 'Tonight we have fun, we have seasons under the moon.', '2016-03-15 17:02:37'),
+(5, 1, 'More Fun', 'More fun More fun More fun', '2016-03-15 17:01:01');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `diaries`
+--
+ALTER TABLE `diaries`
+  ADD CONSTRAINT `diaries_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 -- --------------------------------------------------------
 
