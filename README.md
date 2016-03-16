@@ -157,7 +157,7 @@ This will get the image data:
   "birthday": "1965-01-01",
   "username": "user1",
   "gender": "MALE",
-  "type": "WARD"
+  "type": "ELDERLY"
 }
 ```
 
@@ -168,7 +168,7 @@ This will get the image data:
 * birthday (in format of yyyy-mm-dd)
 * username
 * gender (male or female)
-* type (guardian or ward)
+* type (guardian or elderly)
 
 ```javascript
 {
@@ -178,7 +178,7 @@ This will get the image data:
   "birthday": "1965-01-01",
   "username": "user1",
   "gender": "MALE",
-  "type": "WARD"
+  "type": "ELDERLY"
 }
 ```
 
@@ -192,7 +192,7 @@ This will get the image data:
   "birthday": "1965-01-01",
   "username": "user1",
   "gender": "MALE",
-  "type": "WARD"
+  "type": "ELDERLY"
 }
 ```
 

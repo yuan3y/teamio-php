@@ -258,7 +258,7 @@ INSERT INTO `records` (`id`, `user_id`, `type`, `total`, `win`, `timestamp`) VAL
 DROP TABLE IF EXISTS `relationships`;
 CREATE TABLE IF NOT EXISTS `relationships` (
   `guardianId` int(11) NOT NULL,
-  `wardId` int(11) NOT NULL
+  `elderlyID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(40) NOT NULL,
   `birthday` date NOT NULL,
   `username` varchar(40) NOT NULL,
-  `type` enum('GUARDIAN','WARD') DEFAULT 'WARD',
+  `type` enum('GUARDIAN','ELDERLY') DEFAULT 'ELDERLY',
   `gender` enum('FEMALE','MALE') DEFAULT 'FEMALE',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -284,9 +284,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `birthday`, `username`, `type`, `gender`) VALUES
-(1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01', 'user1', 'WARD', 'MALE'),
+(1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01', 'user1', 'ELDERLY', 'MALE'),
 (2, 'user2@example.com', 'Tan Ah Lian', '1964-12-31', 'user2', 'GUARDIAN', 'FEMALE'),
-(3, 'user3@example.com', 'Mary Foo', '1964-08-31', 'user3', 'WARD', 'FEMALE'),
+(3, 'user3@example.com', 'Mary Foo', '1964-08-31', 'user3', 'ELDERLY', 'FEMALE'),
 (4, 'user4@example.com', 'Foo Bar', '1965-08-09', 'user4', 'GUARDIAN', 'MALE');
 
 --
