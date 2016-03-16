@@ -16,7 +16,7 @@ function get_diaries($user_id)
 
 function get_users()
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users");
+    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, username, gender, type FROM users");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
