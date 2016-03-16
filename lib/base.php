@@ -108,8 +108,10 @@ function _set_default()
     }
     if ($_POST != null)
         return array_merge($defaultArray, $_POST);
-    else
+    elseif ($_GET != null)
         return array_merge($defaultArray, $_GET);
+    else
+        return array_merge($defaultArray, _parsePut());
 }
 
 
