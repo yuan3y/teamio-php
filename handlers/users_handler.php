@@ -21,6 +21,6 @@ class usersHandler
     function post_xhr()
     {
         $params = _set_default();
-        _response(new_user($params['email'], $params['name'], $params['birthday']));
+        _response(new_user($params['email'], $params['name'], $params['birthday'], $params['username'], $params['gender'], $params['type']));
     }
 }

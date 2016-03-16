@@ -21,39 +21,38 @@ function get_users()
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function get_user_by_email($email)
-{
-    $query = MySQL::getInstance()->prepare("SELECT id, email FROM users WHERE email=:email");
-    $query->bindValue(':email', $email, PDO::PARAM_STR);
-    $query->execute();
-    return $query->fetch(PDO::FETCH_ASSOC);
-}
 
 function get_user_by_id($id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday FROM users WHERE id=:id");
+    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, username, gender, type FROM users WHERE id=:id");
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
-function new_user($email, $name, $birthday)
+function new_user($email, $name, $birthday, $username, $gender, $type)
 {
-    $query = MySQL::getInstance()->prepare("INSERT INTO users (email, name, birthday) VALUES (:email, :name, :birthday)");
+    $query = MySQL::getInstance()->prepare("INSERT INTO users (email, name, birthday, username, gender, type) VALUES (:email, :name, :birthday, :username, :gender, :type)");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':name', $name, PDO::PARAM_STR);
     $query->bindValue(':birthday', $birthday, PDO::PARAM_STR);
+    $query->bindValue(':username', $username, PDO::PARAM_STR);
+    $query->bindValue(':gender', $gender, PDO::PARAM_STR);
+    $query->bindValue(':type', $type, PDO::PARAM_STR);
     $query->execute();
     return get_user_by_id(MySQL::getInstance()->lastInsertId());
 }
 
-function update_user($id, $email, $name, $birthday)
+function update_user($id, $email, $name, $birthday, $username, $gender, $type)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday  WHERE id = :id");
+    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday, username=:username, gender=:gender, type=:type WHERE id = :id");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':name', $name, PDO::PARAM_STR);
     $query->bindValue(':birthday', $birthday, PDO::PARAM_STR);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->bindValue(':username', $username, PDO::PARAM_STR);
+    $query->bindValue(':gender', $gender, PDO::PARAM_STR);
+    $query->bindValue(':type', $type, PDO::PARAM_STR);
     $query->execute();
     return get_user_by_id($id);
 }

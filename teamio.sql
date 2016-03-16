@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
+-- version 4.0.10.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 14, 2016 at 02:17 AM
--- Server version: 5.5.47-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.14
+-- Host: 127.3.126.2:3306
+-- Generation Time: Mar 16, 2016 at 03:36 PM
+-- Server version: 5.5.45
+-- PHP Version: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `teamio`
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `diaries` (
   `published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `diaries_users_id_fk` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `diaries`
@@ -47,16 +47,6 @@ INSERT INTO `diaries` (`id`, `user_id`, `title`, `body`, `published`) VALUES
 (3, 1, 'Something like that', 'Nobody but you', '2016-03-15 16:59:31'),
 (4, 1, 'After Midnight', 'Tonight we have fun, we have seasons under the moon.', '2016-03-15 17:02:37'),
 (5, 1, 'More Fun', 'More fun More fun More fun', '2016-03-15 17:01:01');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `diaries`
---
-ALTER TABLE `diaries`
-  ADD CONSTRAINT `diaries_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 -- --------------------------------------------------------
 
@@ -72,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `description` text,
   `filename` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `images`
@@ -241,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   PRIMARY KEY (`id`),
   KEY `game_user_id_fk` (`user_id`),
   KEY `records_games_type_fk` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `records`
@@ -249,7 +239,15 @@ CREATE TABLE IF NOT EXISTS `records` (
 
 INSERT INTO `records` (`id`, `user_id`, `type`, `total`, `win`, `timestamp`) VALUES
 (1, 1, 'FIND_NAME', 10, 8, '2016-03-13 14:10:46'),
-(2, 1, 'FIND_FACE', 10, 6, '2016-03-13 14:11:51');
+(2, 1, 'FIND_FACE', 10, 6, '2016-03-13 14:11:51'),
+(3, 1, 'FIND_FACE', 10, 5, '2016-03-13 15:12:13'),
+(4, 1, 'FIND_FACE', 10, 7, '2016-03-13 16:31:42'),
+(5, 1, 'FIND_FACE', 10, 8, '2016-03-16 09:44:01'),
+(6, 1, 'FIND_NAME', 10, 6, '2016-03-16 10:04:57'),
+(7, 1, 'FIND_NAME', 10, 4, '2016-03-16 10:08:46'),
+(8, 1, 'FIND_NAME', 10, 8, '2016-03-16 10:17:19'),
+(9, 1, 'FIND_NAME', 10, 3, '2016-03-16 10:22:19'),
+(10, 1, 'FIND_NAME', 10, 9, '2016-03-16 10:23:17');
 
 -- --------------------------------------------------------
 
@@ -275,6 +273,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) CHARACTER SET latin1 NOT NULL,
   `name` varchar(40) NOT NULL,
   `birthday` date NOT NULL,
+  `username` varchar(40) NOT NULL,
+  `type` enum('GUARDIAN','WARD') DEFAULT 'WARD',
+  `gender` enum('FEMALE','MALE') DEFAULT 'FEMALE',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -282,11 +283,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `birthday`) VALUES
-(1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01'),
-(2, 'user2@example.com', 'Tan Ah Kau', '1964-12-31'),
-(3, 'user3@example.com', 'Tom Aw', '1964-08-31'),
-(4, 'user4@example.com', 'Foo Choo', '1965-08-09');
+INSERT INTO `users` (`id`, `email`, `name`, `birthday`, `username`, `type`, `gender`) VALUES
+(1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01', 'user1', 'WARD', 'MALE'),
+(2, 'user2@example.com', 'Tan Ah Lian', '1964-12-31', 'user2', 'GUARDIAN', 'FEMALE'),
+(3, 'user3@example.com', 'Mary Foo', '1964-08-31', 'user3', 'WARD', 'FEMALE'),
+(4, 'user4@example.com', 'Foo Bar', '1965-08-09', 'user4', 'GUARDIAN', 'MALE');
 
 --
 -- Constraints for dumped tables

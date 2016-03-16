@@ -21,7 +21,8 @@ class userHandler
     function put_xhr($id)
     {
         $params = _set_default();
-        _response(update_user($id, $params['email'], $params['name'], $params['birthday']));
+        $params = array_merge(get_user_by_id($id), $params);
+        _response(update_user($id, $params['email'], $params['name'], $params['birthday'], $params['username'], $params['gender'], $params['type']));
     }
 
     function post($id)
