@@ -115,7 +115,7 @@ function _set_default()
 
 function _parsePut(  )
 {
-    header("Access-Control-Allow-Methods: GET PUT OPTIONS");
+//    header("Access-Control-Allow-Methods: GET PUT OPTIONS");
     global $_PUT;
 
     /* PUT data comes in on the stdin stream */

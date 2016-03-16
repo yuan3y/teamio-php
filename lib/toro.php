@@ -52,6 +52,8 @@ class Toro
         }
 
         header("Access-Control-Allow-Origin: *"); #added to allow cross origin api call -yuan3y
+        header("Access-Control-Allow-Headers: X-Requested-With");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         if ($handler_instance) {
             unset($regex_matches[0]);
 
