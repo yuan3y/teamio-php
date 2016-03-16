@@ -154,7 +154,10 @@ This will get the image data:
   "id": "1",
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
-  "birthday": "1965-01-01"
+  "birthday": "1965-01-01",
+  "username": "user1",
+  "gender": "MALE",
+  "type": "WARD"
 }
 ```
 
@@ -163,13 +166,19 @@ This will get the image data:
 * email
 * name
 * birthday (in format of yyyy-mm-dd)
+* username
+* gender (male or female)
+* type (guardian or ward)
 
 ```javascript
 {
   "id": "1",
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
-  "birthday": "1965-01-01"
+  "birthday": "1965-01-01",
+  "username": "user1",
+  "gender": "MALE",
+  "type": "WARD"
 }
 ```
 
@@ -180,7 +189,10 @@ This will get the image data:
   "id": "1",
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
-  "birthday": "1965-01-01"
+  "birthday": "1965-01-01",
+  "username": "user1",
+  "gender": "MALE",
+  "type": "WARD"
 }
 ```
 
