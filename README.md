@@ -274,7 +274,7 @@ You can update the game record by PUT /user/$user_id/record/$game_id after the g
 }
 ```
 
-[`GET /game/find_image/user/$id`](http://php-teamio.rhcloud.com/game/find_image/user/1) generates a new game, with id, then an array of matches, each contains 1 photo, 4 names.
+[`GET /game/find_face/user/$id`](http://php-teamio.rhcloud.com/game/find_face/user/1) generates a new game, with id, then an array of matches, each contains 1 photo, 4 names.
 
 ```javascript
 {
