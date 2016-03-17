@@ -26,6 +26,7 @@ Toro::serve(array(
     "/user/:number/record/" => "RecordsHandler",
     "/user/:number/record/:number" => "RecordHandler",
     "/game/:alpha/user/:number" => "GameHandler",
+    "/verify/" => "VerifyHandler",
     /* Naming Convention
      * To make our life easier, we'll use only singular terms in URL,
      * For Handlers' names, use singular or plural corresponding to the usage

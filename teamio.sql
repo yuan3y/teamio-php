@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `birthday`, `username`, `type`, `gender`) VALUES
+INSERT INTO `users` (`id`, `email`, `name`, `birthday`, password, `type`, `gender`) VALUES
 (1, 'user1@example.com', 'Tan Ah Kau', '1965-01-01', 'user1', 'ELDERLY', 'MALE'),
 (2, 'user2@example.com', 'Tan Ah Lian', '1964-12-31', 'user2', 'GUARDIAN', 'FEMALE'),
 (3, 'user3@example.com', 'Mary Foo', '1964-08-31', 'user3', 'ELDERLY', 'FEMALE'),

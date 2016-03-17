@@ -155,7 +155,6 @@ This will get the image data:
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
   "birthday": "1965-01-01",
-  "username": "user1",
   "gender": "MALE",
   "type": "ELDERLY"
 }
@@ -166,7 +165,7 @@ This will get the image data:
 * email
 * name
 * birthday (in format of yyyy-mm-dd)
-* username
+* password
 * gender (male or female)
 * type (guardian or elderly)
 
@@ -176,7 +175,6 @@ This will get the image data:
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
   "birthday": "1965-01-01",
-  "username": "user1",
   "gender": "MALE",
   "type": "ELDERLY"
 }
@@ -190,7 +188,6 @@ This will get the image data:
   "email": "user1@example.com",
   "name": "Tan Ah Kau",
   "birthday": "1965-01-01",
-  "username": "user1",
   "gender": "MALE",
   "type": "ELDERLY"
 }
@@ -385,5 +382,28 @@ user_id or diary_id error:
 ```javascript
 {
   "error": "wrong user id or diary id"
+}
+```
+
+`POST /verify/` verify user with email and password.
+* email
+* password
+
+success:
+```javascript
+{
+  "id": "1",
+  "email": "user1@example.com",
+  "name": "Tan Ah Kau",
+  "birthday": "1965-01-01",
+  "gender": "MALE",
+  "type": "WARD"
+}
+```
+
+failure:
+```javascript
+{
+  "error": "email or password incorrect"
 }
 ```

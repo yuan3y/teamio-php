@@ -16,7 +16,7 @@ function get_diaries($user_id)
 
 function get_users()
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, username, gender, type FROM users");
+    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, gender, type FROM users");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -24,7 +24,7 @@ function get_users()
 
 function get_user_by_id($id)
 {
-    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, username, gender, type FROM users WHERE id=:id");
+    $query = MySQL::getInstance()->prepare("SELECT id, email, name, birthday, gender, type FROM users WHERE id=:id");
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
@@ -32,11 +32,11 @@ function get_user_by_id($id)
 
 function new_user($email, $name, $birthday, $username, $gender, $type)
 {
-    $query = MySQL::getInstance()->prepare("INSERT INTO users (email, name, birthday, username, gender, type) VALUES (:email, :name, :birthday, :username, :gender, :type)");
+    $query = MySQL::getInstance()->prepare("INSERT INTO users (email, name, birthday, password, gender, type) VALUES (:email, :name, :birthday, :password, :gender, :type)");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':name', $name, PDO::PARAM_STR);
     $query->bindValue(':birthday', $birthday, PDO::PARAM_STR);
-    $query->bindValue(':username', $username, PDO::PARAM_STR);
+    $query->bindValue(':password', $username, PDO::PARAM_STR);
     $query->bindValue(':gender', $gender, PDO::PARAM_STR);
     $query->bindValue(':type', $type, PDO::PARAM_STR);
     $query->execute();
@@ -45,12 +45,12 @@ function new_user($email, $name, $birthday, $username, $gender, $type)
 
 function update_user($id, $email, $name, $birthday, $username, $gender, $type)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday, username=:username, gender=:gender, type=:type WHERE id = :id");
+    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday, password=:password, gender=:gender, type=:type WHERE id = :id");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':name', $name, PDO::PARAM_STR);
     $query->bindValue(':birthday', $birthday, PDO::PARAM_STR);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
-    $query->bindValue(':username', $username, PDO::PARAM_STR);
+    $query->bindValue(':password', $username, PDO::PARAM_STR);
     $query->bindValue(':gender', $gender, PDO::PARAM_STR);
     $query->bindValue(':type', $type, PDO::PARAM_STR);
     $query->execute();
@@ -215,7 +215,7 @@ ORDER BY RAND()
 LIMIT :number_of_games
 ");
     $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $query->bindValue(':number_of_games', (int) $number_of_games, PDO::PARAM_INT);
+    $query->bindValue(':number_of_games', (int)$number_of_games, PDO::PARAM_INT);
     $query->execute();
 
     $images = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -295,3 +295,13 @@ function get_correct_answer($choice_images, $correct_image)
     }
 }
 
+function verify_email_password($email, $password)
+{
+    $query = MySQL::getInstance()->prepare("SELECT * FROM users WHERE email=:email AND password=:password");
+    $query->bindValue(':email', $email);
+    $query->bindValue(':password', $password);
+    $query->execute();
+    $user_info=$query->fetch();
+    if (!$user_info) return array("error" => "email or password incorrect");
+    else return get_user_by_id($user_info['id']);
+}
