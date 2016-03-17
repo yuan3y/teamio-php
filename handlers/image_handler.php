@@ -31,6 +31,11 @@ class imageHandler
             $name = hash_file('CRC32', $_FILES["picture"]["tmp_name"], FALSE) . $extensions[exif_imagetype($_FILES['picture']['tmp_name'])];
             move_uploaded_file($_FILES["picture"]["tmp_name"], $uploads_dir . $name);
         } else {
+            $prefix = UPLOADS_PATH;
+
+            if (substr($images['filename'], 0, strlen($prefix)) == $prefix) {
+                $images['filename']= substr($images['filename'], strlen($prefix));
+            }
             $name = $images['filename'];
         }
         $result[] = update_image($user_id, $img_id, $params['friend_name'], $params['description'], $name);
