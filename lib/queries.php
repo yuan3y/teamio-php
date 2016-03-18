@@ -43,14 +43,13 @@ function new_user($email, $name, $birthday, $username, $gender, $type)
     return get_user_by_id(MySQL::getInstance()->lastInsertId());
 }
 
-function update_user($id, $email, $name, $birthday, $username, $gender, $type)
+function update_user($id, $email, $name, $birthday, $gender, $type)
 {
-    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday, password=:password, gender=:gender, type=:type WHERE id = :id");
+    $query = MySQL::getInstance()->prepare("UPDATE users SET email = :email, name=:name, birthday=:birthday, gender=:gender, type=:type WHERE id = :id");
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':name', $name, PDO::PARAM_STR);
     $query->bindValue(':birthday', $birthday, PDO::PARAM_STR);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
-    $query->bindValue(':password', $username, PDO::PARAM_STR);
     $query->bindValue(':gender', $gender, PDO::PARAM_STR);
     $query->bindValue(':type', $type, PDO::PARAM_STR);
     $query->execute();

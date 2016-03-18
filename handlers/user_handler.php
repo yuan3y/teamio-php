@@ -22,7 +22,7 @@ class userHandler
     {
         $params = _set_default();
         $params = array_merge(get_user_by_id($id), $params);
-        _response(update_user($id, $params['email'], $params['name'], $params['birthday'], $params['password'], $params['gender'], $params['type']));
+        _response(update_user($id, $params['email'], $params['name'], $params['birthday'], $params['gender'], $params['type']));
     }
 
     function post($id)
